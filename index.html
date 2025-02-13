@@ -12,49 +12,233 @@
     }
 
     @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
     }
 
     @keyframes bounce2 {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-20px); }
-      60% { transform: translateY(-10px); }
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-20px);
+      }
+
+      60% {
+        transform: translateY(-10px);
+      }
     }
 
-    .bounce2 { animation: bounce2 2s ease infinite; }
+    .bounce2 {
+      animation: bounce2 2s ease infinite;
+    }
+
+    @keyframes falling-hearts {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* body {
+    cursor: url('https://abs.twimg.com/emoji/v2/72x72/1f497.png'), auto;
+  } */
+
+    @keyframes floating-hearts {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .floating-heart {
+      position: absolute;
+      animation: floating-hearts 2s infinite ease-in-out;
+      font-size: 20px;
+    }
+
+    .yes-button:hover {
+      transform: scale(1.1);
+      animation: button-bounce 0.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes button-bounce {
+      0% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1.1);
+      }
+    }
+
+    .glowing-text {
+      text-shadow: 0 0 10px #ff66b2, 0 0 20px #ff99cc, 0 0 30px #ff66b2;
+      animation: glowing 1.5s infinite alternate;
+    }
+
+    @keyframes glowing {
+      from {
+        text-shadow: 0 0 5px #ff66b2, 0 0 15px #ff99cc, 0 0 20px #ff66b2;
+      }
+
+      to {
+        text-shadow: 0 0 15px #ff99cc, 0 0 25px #ff66b2, 0 0 30px #ff99cc;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .animate-pop {
+      animation: popIn 0.5s ease-in-out;
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    body {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .shake:hover {
+      animation: shake 0.3s ease-in-out infinite;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-3px);
+      }
+
+      50% {
+        transform: translateX(3px);
+      }
+
+      75% {
+        transform: translateX(-3px);
+      }
+    }
+
+    .floating-container {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+    }
+
+    .floating-heart2 {
+      position: absolute;
+      font-size: 30px;
+      opacity: 0.6;
+      animation: floatUp 5s infinite ease-in-out alternate;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
 <body class="gradient-background flex items-center justify-center h-screen px-6 text-center">
+  <!-- Background Music -->
   <audio id="bgMusic" autoplay loop>
     <source src="https://pagallworld.co.in/wp-content/uploads/2023/12/Mine-Mine.mp3" type="audio/mp3">
   </audio>
 
+  <div class="floating-container">
+    <span class="floating-heart2" style="top: 10%; left: 20%;">💖</span>
+    <span class="floating-heart2" style="top: 30%; left: 70%;">💞</span>
+    <span class="floating-heart2" style="top: 60%; left: 40%;">💘</span>
+    <span class="floating-heart2" style="top: 80%; left: 90%;">💗</span>
+  </div>
+
   <div class="flex flex-col items-center max-w-[90%] md:max-w-[500px] p-6 rounded-lg shadow-xl bg-white">
     <!-- Image -->
-    <img id="imageDisplay" 
-      src="https://i.pinimg.com/736x/76/60/1e/76601eb42cb97b668a299ac7f0371257.jpg"
-      alt="Cute kitten with flowers" 
+    <span class="floating-heart" style="top: 50px; left: 20px;">💖</span>
+    <span class="floating-heart" style="top: 120px; right: 30px;">💞</span>
+    <span class="floating-heart" style="bottom: 30px; left: 40px;">💗</span>
+
+    <img id="imageDisplay" src="https://i.pinimg.com/736x/76/60/1e/76601eb42cb97b668a299ac7f0371257.jpg"
+      alt="Cute kitten with flowers"
       class="rounded-md w-[250px] h-[250px] md:w-[350px] md:h-[350px] object-cover animate-pulse" />
 
     <!-- Question -->
-    <h2 id="valentineQuestion" class="text-2xl md:text-4xl font-bold italic text-[#bd1e59] my-4">
+    <h2 id="valentineQuestion" class="glowing-text text-2xl md:text-4xl font-bold italic text-[#bd1e59] my-4">
       Will you be my Valentine?
     </h2>
 
     <!-- Buttons -->
     <div class="flex gap-4 flex-wrap justify-center w-full" id="responseButtons">
       <button id="yesButton"
-        class="bounce2 w-full md:w-auto px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-lg transition hover:bg-green-600">
+        class="bounce2 yes-button md:w-auto px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-lg transition hover:bg-green-600">
         Yes
       </button>
       <button id="noButton"
-        class="w-full md:w-auto px-6 py-3 text-lg font-semibold text-white bg-red-500 rounded-lg shadow-lg transition hover:bg-red-600">
+        class="shake w-full md:w-auto px-6 py-3 text-lg font-semibold text-white bg-red-500 rounded-lg shadow-lg transition hover:bg-red-600">
         No
       </button>
     </div>
   </div>
+
 
   <script type="module">
     import confetti from 'https://cdn.skypack.dev/canvas-confetti';
@@ -75,6 +259,23 @@
       "https://i.pinimg.com/736x/38/28/e6/3828e610ef40b7ef28d3a00d3060b964.jpg"
     ];
 
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.innerHTML = "❤️"; // Heart Emoji
+      heart.style.position = "fixed";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = "-20px";
+      heart.style.fontSize = Math.random() * 20 + 10 + "px"; // Random sizes
+      heart.style.opacity = Math.random();
+      heart.style.animation = "falling-hearts 3s linear infinite";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 3000);
+    }
+
+    setInterval(createHeart, 300);
     // Fix autoplay issue
     document.addEventListener("click", () => {
       const bgMusic = document.getElementById("bgMusic");
@@ -93,7 +294,7 @@
     // Yes Button Click Event
     yesButton.addEventListener('click', () => {
       imageDisplay.src = imagePaths[6]; // Happy image
-      valentineQuestion.textContent = "Yayyy!! :3";
+      valentineQuestion.textContent = "Yayyy!! :3 Love you Toooooo! 💖";
       responseButtons.style.display = 'none';
       confetti();
 
@@ -109,6 +310,21 @@
         });
       }, 1000);
     });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const bgMusic = document.getElementById("bgMusic");
+
+      // Try to autoplay music when the page loads
+      bgMusic.play().catch(() => {
+        console.log("Autoplay blocked. Waiting for user interaction...");
+
+        // Play music when user interacts (fix for autoplay restriction)
+        document.addEventListener("click", () => {
+          bgMusic.play();
+        }, { once: true }); // Runs only once
+      });
+    });
+
   </script>
 </body>
 
