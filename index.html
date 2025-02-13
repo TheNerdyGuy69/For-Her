@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-background {
+      background: linear-gradient(180deg, #ffd0e5 0%, #ffe8f2 36%, #ffffff 100%);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes bounce2 {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+
+    .bounce2 { animation: bounce2 2s ease infinite; }
+  </style>
+</head>
+
+<body class="gradient-background flex items-center justify-center h-screen px-6 text-center">
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://pagallworld.co.in/wp-content/uploads/2023/12/Mine-Mine.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="flex flex-col items-center max-w-[90%] md:max-w-[500px] p-6 rounded-lg shadow-xl bg-white">
+    <!-- Image -->
+    <img id="imageDisplay" 
+      src="https://i.pinimg.com/736x/76/60/1e/76601eb42cb97b668a299ac7f0371257.jpg"
+      alt="Cute kitten with flowers" 
+      class="rounded-md w-[250px] h-[250px] md:w-[350px] md:h-[350px] object-cover animate-pulse" />
+
+    <!-- Question -->
+    <h2 id="valentineQuestion" class="text-2xl md:text-4xl font-bold italic text-[#bd1e59] my-4">
+      Will you be my Valentine?
+    </h2>
+
+    <!-- Buttons -->
+    <div class="flex gap-4 flex-wrap justify-center w-full" id="responseButtons">
+      <button id="yesButton"
+        class="bounce2 w-full md:w-auto px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-lg transition hover:bg-green-600">
+        Yes
+      </button>
+      <button id="noButton"
+        class="w-full md:w-auto px-6 py-3 text-lg font-semibold text-white bg-red-500 rounded-lg shadow-lg transition hover:bg-red-600">
+        No
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const imageDisplay = document.getElementById('imageDisplay');
+    const valentineQuestion = document.getElementById('valentineQuestion');
+    const responseButtons = document.getElementById('responseButtons');
+
+    let noClickCount = 0;
+    const imagePaths = [
+      "https://thumbs.dreamstime.com/b/sad-cat-vector-illustrator-cute-cat-icon-sad-face-head-kawaii-cartoon-pet-animal-character-sad-emotion-sad-cat-vector-341619069.jpg",
+      "https://i.pinimg.com/originals/4b/9d/91/4b9d91c1f553f0b8920e22f5c9fd526f.gif",
+      "https://c7.alamy.com/comp/J2H3JP/sad-cat-pets-of-character-vector-art-J2H3JP.jpg",
+      "https://img.freepik.com/free-vector/cute-cat-crying-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated-premium-vector_138676-5857.jpg?t=st=1739454710~exp=1739458310~hmac=c5d50db6b289112283ca3a80d4037ee8a5059776441b98648cc5c49e5bcc1055&w=740",
+      "https://i.pinimg.com/originals/35/9e/a5/359ea5eec4e733a5c0ee407d013e8295.gif",
+      "https://i.pinimg.com/736x/3c/12/51/3c12514fcbe881c143911d7901011b27.jpg",
+      "https://i.pinimg.com/736x/38/28/e6/3828e610ef40b7ef28d3a00d3060b964.jpg"
+    ];
+
+    // Fix autoplay issue
+    document.addEventListener("click", () => {
+      const bgMusic = document.getElementById("bgMusic");
+      bgMusic.play().catch(() => console.log("Autoplay blocked, waiting for user interaction"));
+    });
+
+    // No Button Click Event
+    noButton.addEventListener('click', () => {
+      if (noClickCount < 5) {
+        noClickCount++;
+        imageDisplay.src = imagePaths[noClickCount];
+        noButton.textContent = ["No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
+      }
+    });
+
+    // Yes Button Click Event
+    yesButton.addEventListener('click', () => {
+      imageDisplay.src = imagePaths[6]; // Happy image
+      valentineQuestion.textContent = "Yayyy!! :3";
+      responseButtons.style.display = 'none';
+      confetti();
+
+      // Add Love Button After 1s
+      setTimeout(() => {
+        const loveButton = document.createElement('button');
+        loveButton.textContent = "Click me to receive love 💖";
+        loveButton.className = "mt-4 px-6 py-3 text-lg font-semibold text-white bg-pink-500 rounded-lg shadow-lg transition hover:bg-pink-600";
+        responseButtons.parentNode.appendChild(loveButton);
+
+        loveButton.addEventListener('click', () => {
+          alert("You are loved! ❤️💘💞");
+        });
+      }, 1000);
+    });
+  </script>
+</body>
+
+</html>
